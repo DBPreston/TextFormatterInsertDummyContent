@@ -33,19 +33,24 @@ class TextFormatterInsertDummyContent extends Textformatter {
 
 		$paras = file($textfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-		preg_match("/\[dc *(\d) *(w?)\]/", $str, $matches);
+		preg_match("/\[dc:?(\d)-?(\d?)(p|w?)\]/", $str, $matches);
 
 		if(!$matches) return;
 
-		if($matches[2] == 'w'){
+		$fullMatch = $matches[0];
+		$showMin = $matches[1];
+		$showMax = $matches[2];
+		$showWhat = $matches[3];
 
-			$wordStart = $this->page->id % (str_word_count($paras[0]) - $matches[1]);
+		if($showWhat == 'w'){
+
+			$wordStart = $this->page->id % (str_word_count($paras[0]) - $showMin);
 
 			$words = str_word_count($paras[0],1);
 
 			$out = '';
 
-			for($w = $wordStart; $w < ($wordStart + $matches[1]); $w++){
+			for($w = $wordStart; $w < ($wordStart + $showMin); $w++){
 			  $out .= "{$words[$w]} ";
 			}
 
@@ -53,17 +58,17 @@ class TextFormatterInsertDummyContent extends Textformatter {
 
 		} else {
 
-			$paraStart = $this->page->id % (count($paras) - $matches[1]);
+			$paraStart = $this->page->id % (count($paras) - $showMin);
 
 			$out = '';
 
-			for($p = $paraStart; $p < ($paraStart + $matches[1]); $p++){
+			for($p = $paraStart; $p < ($paraStart + $showMin); $p++){
 			  $out .= "<p>{$paras[$p]}</p>";
 			}
 
 		}
 
-		$str = str_replace($matches[0], $out, $str);
+		$str = str_replace($fullMatch, $out, $str);
 
 	}
 }
