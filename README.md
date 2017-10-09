@@ -4,7 +4,7 @@ A TextFormatter for ProcessWire CMS/CMF that aims to aid development by allowing
 
 Usage is simple - just type for example **[dc3]** into a textarea with this textformatter applied (plain textarea or CKEditor) and it will be replaced at runtime by **3** paragraphs of dummy content. It can also be used to populate text fields (for headings etc) using e.g. **[dc4w]**. This will produce **4 w**ords (rather than paragraphs) at runtime.
 
-##Tag Examples
+## Tag Examples
 
 - [dc3] - Show 3 paragraphs ([dc:3], [dc3p] & [dc:3p] all do the same).
 - [dc3-6] - Show 3 to 6 paragraphs randomly per page load ([dc:3-6], [dc3-6p] & [dc:3-6p] all do the same).
