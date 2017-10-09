@@ -42,15 +42,21 @@ class TextFormatterInsertDummyContent extends Textformatter {
 		$showMax = $matches[2];
 		$showWhat = $matches[3];
 
+		if($showMax){
+			$showHowMany = mt_rand($showMin, $showMax);
+		} else {
+			$showHowMany = $showMin;
+		}
+
+		$out = '';
+
 		if($showWhat == 'w'){
 
 			$wordStart = $this->page->id % (str_word_count($paras[0]) - $showMin);
 
 			$words = str_word_count($paras[0],1);
 
-			$out = '';
-
-			for($w = $wordStart; $w < ($wordStart + $showMin); $w++){
+			for($w = $wordStart; $w < ($wordStart + $showHowMany); $w++){
 			  $out .= "{$words[$w]} ";
 			}
 
@@ -60,9 +66,7 @@ class TextFormatterInsertDummyContent extends Textformatter {
 
 			$paraStart = $this->page->id % (count($paras) - $showMin);
 
-			$out = '';
-
-			for($p = $paraStart; $p < ($paraStart + $showMin); $p++){
+			for($p = $paraStart; $p < ($paraStart + $showHowMany); $p++){
 			  $out .= "<p>{$paras[$p]}</p>";
 			}
 
