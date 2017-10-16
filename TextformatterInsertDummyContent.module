@@ -12,7 +12,7 @@
  *
  */
 
-class TextFormatterInsertDummyContent extends Textformatter {
+class TextformatterInsertDummyContent extends Textformatter {
 
 	public static function getModuleInfo() {
 		return array(
