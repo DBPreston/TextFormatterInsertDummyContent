@@ -18,7 +18,7 @@ class TextformatterInsertDummyContent extends Textformatter {
 		return array(
 			'title' => 'Insert Dummy Content',
 			'summary' => "Development Tool - allows special tags to be replaced by paragraphs or optionally words of dummy content.",
-			'version' => '0.0.3',
+			'version' => '1.0.0',
 		);
 	}
 
