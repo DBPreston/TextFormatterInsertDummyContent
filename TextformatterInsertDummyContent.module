@@ -24,10 +24,10 @@ class TextformatterInsertDummyContent extends Textformatter {
 
 	public function format(&$str) {
 
-		$textfile = $this->config->paths->siteModules.'TextFormatterInsertDummyContent'.DIRECTORY_SEPARATOR.'dummytext.txt';
+		$textfile = $this->config->paths->siteModules.'TextformatterInsertDummyContent'.DIRECTORY_SEPARATOR.'dummytext.txt';
 
 		if(!file_exists($textfile)){
-			$str = "<span style='color:red'>Error - 'dummytext.txt' not found</span> (TextFormatterInsertDummyContent)";
+			$str = "<span style='color:red'>Error - 'dummytext.txt' not found</span> (TextformatterInsertDummyContent)";
 			return;
 		}
 
