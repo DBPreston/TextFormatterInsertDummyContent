@@ -24,6 +24,12 @@ class TextformatterInsertDummyContent extends Textformatter {
 
 	public function format(&$str) {
 
+		static $seeded = false;
+		if (!$seeded) {
+			mt_srand($this->page->id);
+			$seeded = true;
+		}
+
 		$textfile = $this->config->paths->siteModules.'TextformatterInsertDummyContent'.DIRECTORY_SEPARATOR.'dummytext.txt';
 
 		if(!file_exists($textfile)){
@@ -64,8 +70,7 @@ class TextformatterInsertDummyContent extends Textformatter {
 
 		} else {
 
-			$paraStart = $this->page->id % (count($paras) - $showMin);
-
+			$paraStart = mt_rand(0, count($paras) - $showHowMany);
 			for($p = $paraStart; $p < ($paraStart + $showHowMany); $p++){
 			  $out .= "<p>{$paras[$p]}</p>";
 			}
@@ -73,6 +78,5 @@ class TextformatterInsertDummyContent extends Textformatter {
 		}
 
 		$str = str_replace($fullMatch, $out, $str);
-
 	}
 }
