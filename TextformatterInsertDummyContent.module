@@ -12,22 +12,28 @@
  *
  */
 
-class TextFormatterInsertDummyContent extends Textformatter {
+class TextformatterInsertDummyContent extends Textformatter {
 
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Insert Dummy Content',
 			'summary' => "Development Tool - allows special tags to be replaced by paragraphs or optionally words of dummy content.",
-			'version' => 002,
+			'version' => '1.0.0',
 		);
 	}
 
 	public function format(&$str) {
 
-		$textfile = $this->config->paths->siteModules.'TextFormatterInsertDummyContent'.DIRECTORY_SEPARATOR.'dummytext.txt';
+		static $seeded = false;
+		if (!$seeded) {
+			mt_srand($this->page->id);
+			$seeded = true;
+		}
+
+		$textfile = $this->config->paths->siteModules.'TextformatterInsertDummyContent'.DIRECTORY_SEPARATOR.'dummytext.txt';
 
 		if(!file_exists($textfile)){
-			$str = "<span style='color:red'>Error - 'dummytext.txt' not found</span> (TextFormatterInsertDummyContent)";
+			$str = "<span style='color:red'>Error - 'dummytext.txt' not found</span> (TextformatterInsertDummyContent)";
 			return;
 		}
 
@@ -64,8 +70,7 @@ class TextFormatterInsertDummyContent extends Textformatter {
 
 		} else {
 
-			$paraStart = $this->page->id % (count($paras) - $showMin);
-
+			$paraStart = mt_rand(0, count($paras) - $showHowMany);
 			for($p = $paraStart; $p < ($paraStart + $showHowMany); $p++){
 			  $out .= "<p>{$paras[$p]}</p>";
 			}
@@ -73,6 +78,5 @@ class TextFormatterInsertDummyContent extends Textformatter {
 		}
 
 		$str = str_replace($fullMatch, $out, $str);
-
 	}
 }
